@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+option go_package = "core";
+
+enum LanguageType {
+  PLAIN = 0;
+  CPP = 1;
+  JAVA = 2;
+  PYTHON = 3;
+  GO = 4;
+  MD = 5;
+};
+
+message PostInfo {
+  string content = 1;
+  LanguageType language = 2;
+  string nickname = 3;
+  bool is_disposable = 4;
+  int64 create_time = 5;
+}
+
+message CommentInfo {
+  string content = 1;
+  string nickname = 2;
+  int64 create_time = 3;
+}
+
+message GetPostRequest {
+  int64 id = 1;
+  string password = 2;
+}
+
+message GetPostResponse {
+  PostInfo info = 1;
+  int32 status_code = 254;
+  string status_message = 255;
+}
+
+message SavePostRequest {
+  PostInfo info = 1;
+  string password = 2;
+}
+
+message SavePostResponse {
+  int64 id = 1;
+  int32 status_code = 254;
+  string status_message = 255;
+}
+
+message DeletePostRequest {
+  int64 id = 1;
+}
+
+message DeletePostResponse {
+  int32 status_code = 254;
+  string status_message = 255;
+}
+
+message GetCommentsRequest {
+  int64 post_id = 1;
+  string password = 2;
+}
+
+message GetCommentsResponse {
+  repeated CommentInfo info = 1;
+  int32 status_code = 254;
+  string status_message = 255;
+}
+
+message SaveCommentRequest {
+  CommentInfo info = 1;
+  int64 post_id = 2;
+  string password = 3;
+}
+
+message SaveCommentResponse {
+  int32 status_code = 254;
+  string status_message = 255;
+}
+
+service PasterCore {
+  rpc GetPost(GetPostRequest) returns (GetPostResponse);
+  rpc SavePost(SavePostRequest) returns (SavePostResponse);
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse);
+  rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
+  rpc SaveComment(SaveCommentRequest) returns (SaveCommentResponse);
+}
