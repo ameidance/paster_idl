@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package facade;
+option go_package = "facade";
+
+enum LanguageType {
+  PLAIN = 0;
+  CPP = 1;
+  JAVA = 2;
+  PYTHON = 3;
+  GO = 4;
+  MD = 5;
+};
+
+message GetPostRequest {
+  int64 id = 1;
+  string passwd = 2;
+}
+
+message GetPostResponse {
+  string content = 1;
+  LanguageType lang = 2;
+  string nickname = 3;
+  bool is_disposable = 4;
+  int64 time = 5;
+  int32 status_code = 254;
+  string status_msg = 255;
+}
+
+message SavePostRequest {
+  string content = 1;
+  LanguageType lang = 2;
+  string nickname = 3;
+  bool is_disposable = 4;
+  string passwd = 5;
+}
+
+message SavePostResponse {
+  int64 id = 1;
+  int32 status_code = 254;
+  string status_msg = 255;
+}
+
+message CommentInfo {
+  string content = 1;
+  string nickname = 2;
+  int64 time = 3;
+}
+
+message GetCommentsRequest {
+  int64 post_id = 1;
+  string passwd = 2;
+}
+
+message GetCommentsResponse {
+  repeated CommentInfo info = 1;
+  int32 status_code = 254;
+  string status_msg = 255;
+}
+
+message SaveCommentRequest {
+  string content = 1;
+  string nickname = 2;
+  int64 post_id = 3;
+  string passwd = 4;
+}
+
+message SaveCommentResponse {
+  int32 status_code = 254;
+  string status_msg = 255;
+}
+
+enum ServingStatus {
+  UNKNOWN = 0;
+  SERVING = 1;
+  NOT_SERVING = 2;
+  SERVICE_UNKNOWN = 3;
+}
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  ServingStatus status = 1;
+}
+
+service PasterFacade {
+  rpc GetPost(GetPostRequest) returns (GetPostResponse);
+  rpc SavePost(SavePostRequest) returns (SavePostResponse);
+  rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
+  rpc SaveComment(SaveCommentRequest) returns (SaveCommentResponse);
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+  rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
+}
