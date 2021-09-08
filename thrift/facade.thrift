@@ -1,4 +1,4 @@
-namespace go ameidance.paster.facade
+namespace go paster.facade
 
 enum LanguageType {
     PLAIN = 0
@@ -67,7 +67,7 @@ struct SaveCommentResponse {
     255: required string status_msg
 }
 
-service PasterFacadeService {
+service FacadeService {
     GetPostResponse GetPost(1: GetPostRequest req) (api.post = '/post/get/')
     SavePostResponse SavePost(1: SavePostRequest req) (api.post = '/post/save/')
     GetCommentsResponse GetComments(1: GetCommentsRequest req) (api.get = '/comment/get/')

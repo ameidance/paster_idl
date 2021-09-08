@@ -1,4 +1,4 @@
-namespace go ameidance.paster.core
+namespace go paster.core
 
 enum LanguageType {
     PLAIN = 0
@@ -76,7 +76,7 @@ struct SaveCommentResponse {
     255: required string StatusMessage
 }
 
-service PasterCoreService {
+service CoreService {
     GetPostResponse GetPost(1: GetPostRequest req)
     SavePostResponse SavePost(1: SavePostRequest req)
     DeletePostResponse DeletePost(1: DeletePostRequest req)
