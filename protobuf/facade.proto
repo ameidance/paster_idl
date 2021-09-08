@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package facade;
-option go_package = "facade";
+package paster.facade;
+option go_package = "paster/facade";
 
 enum LanguageType {
   PLAIN = 0;
@@ -85,7 +85,7 @@ message HealthCheckResponse {
   ServingStatus status = 1;
 }
 
-service PasterFacade {
+service Facade {
   rpc GetPost(GetPostRequest) returns (GetPostResponse);
   rpc SavePost(SavePostRequest) returns (SavePostResponse);
   rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);

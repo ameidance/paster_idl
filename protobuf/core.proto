@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package core;
-option go_package = "core";
+package paster.core;
+option go_package = "paster/core";
 
 enum LanguageType {
   PLAIN = 0;
@@ -94,7 +94,7 @@ message HealthCheckResponse {
   ServingStatus status = 1;
 }
 
-service PasterCore {
+service Core {
   rpc GetPost(GetPostRequest) returns (GetPostResponse);
   rpc SavePost(SavePostRequest) returns (SavePostResponse);
   rpc DeletePost(DeletePostRequest) returns (DeletePostResponse);
